@@ -1,1 +1,207 @@
-:>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Click-Share Maker</title>
+    <style>
+        /* Mengatur tampilan halaman */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        /* Judul dengan animasi teks */
+        #title-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+
+        #title {
+            color: #00ff00;
+            font-size: 1.8em;
+            border-right: 0.1em solid #00ff00;
+            animation: blink 0.7s step-end infinite alternate;
+        }
+
+        @keyframes blink {
+            from { border-right-color: transparent; }
+            to { border-right-color: #00ff00; }
+        }
+
+        /* Container untuk input dan output */
+        #container {
+            width: 80%;
+            max-width: 600px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        /* Teks input seperti di CLI */
+        input, select, button, textarea {
+            background-color: transparent;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            width: 100%;
+            margin: 10px 0;
+            border: none;
+            padding: 10px;
+        }
+
+        /* Style untuk textarea (input area) */
+        textarea {
+            min-height: 100px;
+            resize: vertical; /* Membuat textarea bisa disesuaikan tinggi */
+            overflow-y: auto;
+        }
+
+        /* Button untuk membuat link */
+        button {
+            cursor: pointer;
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+
+        button:hover {
+            background-color: #00cc00;
+        }
+
+        /* Tampil link hasil konversi */
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: transparent;
+            font-size: 1.1em;
+            color: #fff;
+            word-wrap: break-word;
+        }
+
+        .copy-button {
+            background-color: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .copy-button:hover {
+            background-color: #00ff00;
+            color: #000;
+        }
+
+        /* Style untuk footer */
+        #footer {
+            margin-top: auto;
+            padding: 20px;
+            color: #00ff00;
+            font-size: 0.9em;
+        }
+
+        /* Responsivitas */
+        @media (max-width: 600px) {
+            #title {
+                font-size: 1.5em;
+            }
+            input, select, button, textarea {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="title-container">
+        <span id="title">Link Click-Share Maker</span>
+    </div>
+    <div id="container">
+        <div>
+            <span>> Teks untuk dibagikan: </span>
+            <textarea id="text" placeholder="Masukkan teks di sini..." rows="4"></textarea>
+        </div>
+        <div>
+            <span>> Pilih media sosial: </span>
+            <select id="social">
+                <option value="whatsapp">WhatsApp</option>
+                <option value="telegram">Telegram</option>
+                <option value="facebook">Facebook</option>
+                <option value="line">Line</option>
+            </select>
+        </div>
+        <div>
+            <button onclick="generateLink()">> Buat Link Share</button>
+        </div>
+
+        <div id="output"></div>
+    </div>
+
+    <div style="color: #d1d1d1; text-decoration: none;" id="footer">
+        <i>by</i> <b><a href="https://s.id/supparries" style="color: #f0f0f0; text-decoration: none;">Supparries</a></b> <i>with</i> <b><a href="https://chatgpt.com" style="color: #f0f0f0; text-decoration: none;">ChatGPT</a></b>
+    </div>
+
+    <script>
+        function generateLink() {
+            const text = document.getElementById("text").value;
+            const social = document.getElementById("social").value;
+            let link = "";
+
+            if (!text) {
+                alert("Teks harus diisi!");
+                return;
+            }
+
+            const encodedText = encodeURIComponent(text);
+
+            switch (social) {
+                case "whatsapp":
+                    link = `https://api.whatsapp.com/send?text=${encodedText}`;
+                    break;
+                case "telegram":
+                    link = `https://telegram.me/share/url?url=${encodedText}`;
+                    break;
+                case "facebook":
+                    link = `https://facebook.com/share/url?url=${encodedText}`;
+                    break;
+                case "line":
+                    link = `https://line.me/R/msg/text/?${encodedText}`;
+                    break;
+            }
+
+            const shortLink = link.length > 50 ? link.slice(0, 50) + '...' : link;
+
+            // Tampilkan hasilnya dengan tampilan pendek
+            document.getElementById("output").innerHTML = `
+                > Link Share untuk <strong>${social}</strong>: 
+                <br><a href="${link}" target="_blank">${shortLink}</a>
+                <br>
+                <button class="copy-button" onclick="copyLink('${link}')">> Copy Link</button>
+            `;
+        }
+
+        function copyLink(link) {
+            const textArea = document.createElement("textarea");
+            textArea.value = link;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            alert("Link telah disalin ke clipboard!");
+        }
+    </script>
+</body>
+</html>
