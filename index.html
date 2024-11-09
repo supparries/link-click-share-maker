@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Click-Share Maker</title>
+    <title>Share Link Generator</title>
     <style>
         /* Mengatur tampilan halaman */
         body {
@@ -17,6 +17,7 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            justify-content: space-between; /* Menjaga elemen di tengah dengan ruang di antara */
         }
 
         /* Judul dengan animasi teks */
@@ -108,10 +109,10 @@
 
         /* Style untuk footer */
         #footer {
-            margin-top: auto;
             padding: 20px;
             color: #00ff00;
             font-size: 0.9em;
+            margin-top: 20px; /* Menambahkan jarak agar tidak terlalu rapat */
         }
 
         /* Responsivitas */
@@ -127,11 +128,11 @@
 </head>
 <body>
     <div id="title-container">
-        <span id="title">Link Click-Share Maker</span>
+        <span id="title">Share Link Generator</span>
     </div>
     <div id="container">
         <div>
-            <span>> Teks untuk dibagikan: </span>
+            <span>> Input Teks: </span>
             <textarea id="text" placeholder="Masukkan teks di sini..." rows="4"></textarea>
         </div>
         <div>
