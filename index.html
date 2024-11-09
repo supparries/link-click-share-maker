@@ -17,7 +17,15 @@
             margin: 0;
             padding: 0;
             text-align: center;
-            justify-content: space-between; /* Menjaga elemen di tengah dengan ruang di antara */
+        }
+
+        /* Membuat konten utama tumbuh agar footer bisa berada di bawah */
+        #main-content {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* Judul dengan animasi teks */
@@ -112,7 +120,8 @@
             padding: 20px;
             color: #00ff00;
             font-size: 0.9em;
-            margin-top: 20px; /* Menambahkan jarak agar tidak terlalu rapat */
+            margin-top: 20px;
+            text-align: center; /* Menjaga footer tetap berada di tengah */
         }
 
         /* Responsivitas */
@@ -130,25 +139,28 @@
     <div id="title-container">
         <span id="title">Share Link Generator</span>
     </div>
-    <div id="container">
-        <div>
-            <span>> Input Teks: </span>
-            <textarea id="text" placeholder="Masukkan teks di sini..." rows="4"></textarea>
-        </div>
-        <div>
-            <span>> Pilih media sosial: </span>
-            <select id="social">
-                <option value="whatsapp">WhatsApp</option>
-                <option value="telegram">Telegram</option>
-                <option value="facebook">Facebook</option>
-                <option value="line">Line</option>
-            </select>
-        </div>
-        <div>
-            <button onclick="generateLink()">> Buat Link Share</button>
-        </div>
 
-        <div id="output"></div>
+    <div id="main-content">
+        <div id="container">
+            <div>
+                <span>> Input Teks: </span>
+                <textarea id="text" placeholder="Masukkan teks di sini..." rows="4"></textarea>
+            </div>
+            <div>
+                <span>> Pilih media sosial: </span>
+                <select id="social">
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="telegram">Telegram</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="line">Line</option>
+                </select>
+            </div>
+            <div>
+                <button onclick="generateLink()">> Buat Link Share</button>
+            </div>
+
+            <div id="output"></div>
+        </div>
     </div>
 
     <div style="color: #d1d1d1; text-decoration: none;" id="footer">
